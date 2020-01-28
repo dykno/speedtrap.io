@@ -1,0 +1,1 @@
+$wc = New-Object net.webclient; "{0:N2} Mbps" -f ((100/(Measure-Command {$wc.Downloadfile('http://speedtest-ca.turnkeyinternet.net/100mb.bin',"c:\Users\skyline\Desktop\speedtest.test")}).TotalSeconds)*8); del c:\Users\skyline\Desktop\speedtest.test
