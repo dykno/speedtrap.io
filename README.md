@@ -1,14 +1,30 @@
-# century-stink
+# speedtrap.io
 For when you're pretty sure that CenturyLink isn't give you consistent gigabit speeds.
 
 # Introduction
-This is currently an incredibly hacky script to roughly measure the bandwidth that I am getting on my home Internet connection from CenturyLink's gigabit fiber service.
+TL;DR: I wanted to write a tool that measured my download speeds throughout the day to see if I was consistently getting the speeds that I am paying for.
 
-The way that I'm calling some of the 3rd party applications is terrible and the way that I am writing out to files makes me cringe every time I look at it.
+The project is still in its infancy and I'm using it to explore containers, APIs, and microservices (which will eventually host data created by the client script).
 
-It also only works on Windows right now...don't ask me why.
+## `client`
+This is currently a poorly written Python script that calls various tools to measure bandwidth.
 
-I promise I'll make this better.
+It currently only runs on Windows and is generally pretty terrible. I'll make it better, I promise.
+
+### Usage
+`python3 speedtrap-client.py`
+
+I currently have this running as a scheduled task that executes every 5.5 hours.
+
+## `speedtrap-web-services`
+My first attempt at using Docker to standup and configure a set of web services.
+
+It currently is 2 NGINX containers: an API gateway and a simple webserver.
+
+This will eventually build out to be a larger set of services.
+
+### Usage
+From the `speedtrap-web-services` directory, run `docker compose up --build -d` and both services should come up.
 
 # Goals
 ## Overall
