@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+   web-main:
+      build: web-main/
+      networks:
+         internal:
+             ipv4_address: 10.0.0.2
+   api-gateway:
+      build: api-gateway/
+      ports: 
+         - '80:80'
+      networks:
+         internal:
+             ipv4_address: 10.0.0.3
+
+networks:
+    internal:
+      ipam:
+         driver: default
+         config:
+            - subnet: "10.0.0.0/24"
