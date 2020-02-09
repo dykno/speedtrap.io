@@ -2,31 +2,24 @@ version: '3.7'
 services:
     web-main:
         build: web-main/
-        networks:
-            internal:
-                ipv4_address: 10.0.0.2
+        container_name: web-admin
     api-gateway:
         build: api-gateway/
+        container_name: api-gateway
         ports: 
             - '80:80'
             - '443:443'
-        networks:
-            internal:
-                ipv4_address: 10.0.0.3
         command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
         volumes:
             - ./data/certbot/conf:/etc/letsencrypt
             - ./data/certbot/www:/var/www/certbot
     certbot:
         image: certbot/certbot
+        container_name: certbot
         entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${1}; done'"
         volumes:
             - ./data/certbot/conf:/etc/letsencrypt
             - ./data/certbot/www/:/var/www/certbot
-
-networks:
-    internal:
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.0.0.0/24"
+    py-mongo-api:
+        build: py-mongo-api/
+        container_name: py-mongo-api
