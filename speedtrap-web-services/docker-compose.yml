@@ -3,6 +3,7 @@ services:
     web-main:
         build: web-main/
         container_name: web-admin
+
     api-gateway:
         build: api-gateway/
         container_name: api-gateway
@@ -13,6 +14,7 @@ services:
         volumes:
             - ./data/certbot/conf:/etc/letsencrypt
             - ./data/certbot/www:/var/www/certbot
+    
     certbot:
         image: certbot/certbot
         container_name: certbot
@@ -20,6 +22,41 @@ services:
         volumes:
             - ./data/certbot/conf:/etc/letsencrypt
             - ./data/certbot/www/:/var/www/certbot
+   
     py-mongo-api:
         build: py-mongo-api/
         container_name: py-mongo-api
+        environment:
+            - MONGO_USERNAME=/run/secrets/speedtest-db_api_username
+            - MONGO_PASSWORD=/run/secrets/speedtest-db_api_password
+        secrets:
+            - speedtest-db_api_username
+            - speedtest-db_api_password
+    
+    speedtest-db:
+        image: mongo
+        container_name: speedtest-db
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/speedtest-db_root_username
+            - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/speedtest-db_root_password
+            - MONGO_INITDB_DATABASE=speedtest
+            - MONGO_INITDB_USERNAME=/run/secrets/speedtest-db_api_username
+            - MONGO_INITDB_PASSWORD=/run/secrets/speedtest-db_api_password
+        volumes:
+            - ./data/db/speedtest/:/data/db/
+            - ./speedtest-db/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.js:ro
+        secrets:
+            - speedtest-db_root_username
+            - speedtest-db_root_password
+            - speedtest-db_api_username
+            - speedtest-db_api_password
+
+secrets:
+    speedtest-db_root_username:
+        file: ./data/secrets/speedtest-db_root_username
+    speedtest-db_root_password:
+        file: ./data/secrets/speedtest-db_root_password
+    speedtest-db_api_username:
+        file: ./data/secrets/speedtest-db_api_username
+    speedtest-db_api_password:
+        file: ./data/secrets/speedtest-db_api_password
