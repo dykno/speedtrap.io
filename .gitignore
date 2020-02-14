@@ -4,3 +4,5 @@ speedtrap-web-services/data/certbot/conf/
 speedtrap-web-services/data/secrets/
 # Exclude database directories for performance and security purposes
 speedtrap-web-services/data/db/
+# Exclude API key configuration file for security purposes
+speedtrap-web-services/api-gateway/api_keys.conf
