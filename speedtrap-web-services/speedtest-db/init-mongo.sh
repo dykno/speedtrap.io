@@ -1,4 +1,6 @@
 #!/bin/bash
+# Script to initialize the MongoDB service
+# in the event that the DB disappears
 
 mongo <<EOF
 
