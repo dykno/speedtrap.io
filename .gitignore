@@ -1,4 +1,6 @@
-# Exclude directories related to CertBot
+# Exclude directories related to CertBot for security purposes
 speedtrap-web-services/data/certbot/conf/
+# Exclude secrets directory for security purposes
 speedtrap-web-services/data/secrets/
+# Exclude database directories for performance and security purposes
 speedtrap-web-services/data/db/
