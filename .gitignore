@@ -6,3 +6,5 @@ speedtrap-web-services/data/secrets/
 speedtrap-web-services/data/db/
 # Exclude API key configuration file for security purposes
 speedtrap-web-services/api-gateway/api_keys.conf
+# Exclude client API configuration file for security purposes
+client/settings.py
