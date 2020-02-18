@@ -14,6 +14,8 @@ services:
         volumes:
             - ./data/certbot/conf:/etc/letsencrypt
             - ./data/certbot/www:/var/www/certbot
+        secrets:
+            - api_keys
     
     certbot:
         image: certbot/certbot
@@ -27,11 +29,13 @@ services:
         build: py-mongo-api/
         container_name: py-mongo-api
         environment:
+            - PYTHONUNBUFFERED=1'
             - MONGO_USERNAME=/run/secrets/speedtest-db_api_username
             - MONGO_PASSWORD=/run/secrets/speedtest-db_api_password
         secrets:
             - speedtest-db_api_username
             - speedtest-db_api_password
+            - api_keys
     
     speedtest-db:
         image: mongo
@@ -60,3 +64,5 @@ secrets:
         file: ./data/secrets/speedtest-db_api_username
     speedtest-db_api_password:
         file: ./data/secrets/speedtest-db_api_password
+    api_keys:
+        file: ./data/secrets/api_keys
