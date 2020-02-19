@@ -48,7 +48,7 @@ services:
             - MONGO_INITDB_PASSWORD=/run/secrets/speedtest-db_api_password
         volumes:
             - ./data/db/speedtest/:/data/db/
-            - ./speedtest-db/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.js:ro
+            - ./speedtest-db/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
         secrets:
             - speedtest-db_root_username
             - speedtest-db_root_password
