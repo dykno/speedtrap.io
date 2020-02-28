@@ -1,9 +1,5 @@
 version: '3.7'
 services:
-    web-main:
-        build: web-main/
-        container_name: web-admin
-
     api-gateway:
         build: api-gateway/
         container_name: api-gateway
@@ -14,6 +10,7 @@ services:
         volumes:
             - ./data/certbot/conf:/etc/letsencrypt
             - ./data/certbot/www:/var/www/certbot
+            - ./data/logs/nginx:/var/log/nginx
         secrets:
             - api_keys
     
