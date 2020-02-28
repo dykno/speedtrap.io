@@ -5,6 +5,8 @@ speedtrap-web-services/data/secrets/
 # Exclude database directories for performance and security purposes
 speedtrap-web-services/data/db/
 # Exclude API key configuration file for security purposes
+# Exclude logging directory for performance and security purposes
+speedtrap-web-services/data/logs/
 speedtrap-web-services/api-gateway/api_keys.conf
 # Exclude client API configuration file for security purposes
 client/settings.py
