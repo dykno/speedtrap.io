@@ -12,8 +12,8 @@ class MongoDriver:
         with open(os.environ['MONGO_PASSWORD'], 'r') as pass_secret:
             self.mongo_password = pass_secret.read().strip()
 
-    def db_connection(self):
+    def db_connection(self, host, database):
 
-        client = MongoClient('mongodb://%s:%s@speedtest-db/speedtest' % (self.mongo_username, self.mongo_password))
+        client = MongoClient('mongodb://%s:%s@%s/%s' % (self.mongo_username, self.mongo_password, host, database))
 
         return client
