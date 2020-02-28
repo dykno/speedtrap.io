@@ -29,9 +29,33 @@ services:
         build: py-mongo-api/
         container_name: py-mongo-api
         environment:
-            - PYTHONUNBUFFERED=1'
+            - PYTHONUNBUFFERED=1
             - MONGO_USERNAME=/run/secrets/speedtest-db_api_username
             - MONGO_PASSWORD=/run/secrets/speedtest-db_api_password
+            - ROUTE_CONFIG=api
+        entrypoint:
+            - gunicorn
+            - --bind
+            - 0.0.0.0:5000
+            - wsgi:app
+        secrets:
+            - speedtest-db_api_username
+            - speedtest-db_api_password
+            - api_keys
+
+    py-mongo-web:
+        build: py-mongo-api/
+        container_name: py-mongo-web
+        environment:
+            - PYTHONUNBUFFERED=1
+            - MONGO_USERNAME=/run/secrets/speedtest-db_api_username
+            - MONGO_PASSWORD=/run/secrets/speedtest-db_api_password
+            - ROUTE_CONFIG=web
+        entrypoint:
+            - gunicorn
+            - --bind
+            - 0.0.0.0:5000
+            - wsgi:app
         secrets:
             - speedtest-db_api_username
             - speedtest-db_api_password
