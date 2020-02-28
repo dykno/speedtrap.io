@@ -1,9 +1,5 @@
 version: '3.7'
 services:
-    web-main:
-        build: web-main/
-        container_name: web-admin
-
     api-gateway:
         build: api-gateway/
         container_name: api-gateway
