@@ -97,7 +97,7 @@ ookla = str(run_ookla_speedtest())
 if api_key:
 	url = 'https://api.speedtrap.io/speedtest'
 	result_data = {
-		"timestamp": dt_string,
+		"timestamp": now.timestamp(),
 		"fast": fast,
 		"speedtest": speedtest,
 		"turnkey": turnkey,

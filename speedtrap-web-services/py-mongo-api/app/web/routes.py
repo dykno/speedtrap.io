@@ -26,8 +26,8 @@ def get_speedtest_today():
     now = datetime.now()
     today = now.strftime('%Y/%m/%d')
 
-    #query_result = collection.find({'timestamp':{'$lt': now, '$gt': now - timedelta(hours=24)}})
-    query_result = collection.find({'timestamp':'test'})
+    query_result = collection.find({'timestamp':{'$lt': now.timestamp(), '$gt': (now - timedelta(hours=24)).timestamp()}})
+    #query_result = collection.find({'timestamp':'test'})
     results = []
     for doc in query_result:
         print('%s - %s' % (type(doc), doc))
@@ -35,15 +35,3 @@ def get_speedtest_today():
         results.append(doc)
     
     return str(results)
-
-@app.route('/mongo_status')
-def mongo_status():
-    
-    db = client.speedtest
-    collections = db.collection_names()
-    query_result = db.results.find()
-    results = []
-    for doc in query_result:
-        results.append(doc)
-    return "You've hit the status page! %s %s %s" % (collections, query_result, str(results))
-    
