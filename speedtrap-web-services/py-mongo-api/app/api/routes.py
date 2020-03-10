@@ -61,4 +61,3 @@ def mongo_status():
     for doc in query_result:
         results.append(doc)
     return "You've hit the status page! %s %s %s" % (collections, query_result, str(results))
-    
