@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>speedtrap.io</title>
+        <link rel="stylesheet" href="static/css/speedtrap.css">
+    </head>
+    <body>
+        <div class='flex-table'>
+            <table>
+                <tr>
+                    <th>Fast.com Average</th>
+                    <th>Speedtest.net Average</th>
+                    <th>Turnkey Average</th>
+                    <th>Ookla Average</th>
+                </tr>
+                <tr>
+                    <td>{{stats['fast']['avg']}}</td>
+                </tr>
+            </table>
+            <table> 
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Fast.com</th>
+                    <th>Speedtest.net</th>
+                    <th>Turnkey</th>
+                    <th>Ookla</th>
+                </tr>
+            {% for result in data %}
+                <tr>
+                {% for key in result %}
+                    <td>{{result[key]}}</td>
+                {% endfor %}
+            {% endfor %}
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
