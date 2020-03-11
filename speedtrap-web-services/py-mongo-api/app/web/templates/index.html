@@ -15,7 +15,9 @@
                     <th>Ookla Average</th>
                 </tr>
                 <tr>
-                    <td>{{stats['fast']['avg']}}</td>
+                {% for test in stats %}
+                    <td>{{(stats[test]['avg'] / 1000000) | round(2)}}</td>
+                {% endfor %}    
                 </tr>
             </table>
             <table> 
