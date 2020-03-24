@@ -12,19 +12,34 @@ This is currently a poorly written Python script that calls various tools to mea
 It currently only runs on Windows and is generally pretty terrible. I'll make it better, I promise.
 
 ### Usage
-`python3 speedtrap-client.py`
+`python3 speedtrap-client.py` without any arguments will log the results to a local `report.csv` file.
+
+`python3 speedtrap-client.py -k APIKEY` will attempt to send the results to the web services for reporting on the web site. **Note**: an API key can also be entered by adding an `API_KEY` value to `settings.py`.
 
 I currently have this running as a scheduled task that executes every 5.5 hours.
 
 ## `speedtrap-web-services`
 My first attempt at using Docker to standup and configure a set of web services.
 
-It currently is 2 NGINX containers: an API gateway and a simple webserver.
+It speedtrap's web services currently consist of 5 containers:
+* an NGINX server acting as an API gateway,
+* a `certbot` image ensuring that TLS certs from Let's Encrypt stay updated,
+* a Flask app that serves API functions from behind the API gateway,
+* a Flask app that serves Web functions from behind the API gateway,
+* a MongoDB that receives and serves data via the Flask apps
+
 
 This will eventually build out to be a larger set of services.
 
 ### Usage
-From the `speedtrap-web-services` directory, run `docker compose up --build -d` and both services should come up.
+From the `speedtrap-web-services` directory, run `docker compose up --build -d` and all the services should come up after some initial configuration.
+
+In an effort to keep passwords, secrets, and keys stored in a reasonably secure manner (and to keep them out of this GitHub repo), the services take advantage of Docker Secrets. As seen in the `docker-compose.yml` file, there are a few secret files in the `speedtrap-web-services/data/secrets/` directory that need to be populated:
+* `speedtest-db_root_username`: This gets passed into the MongoDB container to configure the intial root username.
+* `speedtest-db_root_password`: This gets passed into the MongoDB container to configure the intial root password.
+* `speedtest-db_api_username`: This gets passed into the MongoDB container to configure the username that the Flask apps use to interact with the database.
+* `speedtest-db_api_password`: This gets passed into the MongoDB container to configure the passowrd that the Flask apps use to interact with the database.
+* `api_keys`: This gets passed into the NGINX API gateway to conduct basic authentication to the API.
 
 # Goals
 ## Overall
