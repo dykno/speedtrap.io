@@ -4,6 +4,7 @@ from bson.objectid import ObjectId
 from flask import jsonify
 from flask import request
 from flask import render_template
+from functools import wraps
 from keylookup import KeyLookup
 from mongodriver import MongoDriver
 
