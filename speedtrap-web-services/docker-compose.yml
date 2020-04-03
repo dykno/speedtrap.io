@@ -48,6 +48,8 @@ services:
             - MONGO_USERNAME=/run/secrets/speedtest-db_api_username
             - MONGO_PASSWORD=/run/secrets/speedtest-db_api_password
             - ROUTE_CONFIG=web
+            - AUTH0_CONFIG=/run/secrets/auth0-config
+            - APP_SECRET=/run/secrets/py-mongo-web_app-secret
         entrypoint:
             - gunicorn
             - --bind
@@ -57,6 +59,8 @@ services:
             - speedtest-db_api_username
             - speedtest-db_api_password
             - api_keys
+            - auth0-config
+            - py-mongo-web_app-secret
     
     speedtest-db:
         image: mongo
@@ -87,3 +91,7 @@ secrets:
         file: ./data/secrets/speedtest-db_api_password
     api_keys:
         file: ./data/secrets/api_keys
+    auth0-config:
+        file: ./data/secrets/auth0-config
+    py-mongo-web_app-secret:
+        file: ./data/secrets/py-mongo-web_app-secret
