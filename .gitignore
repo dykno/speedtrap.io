@@ -10,5 +10,11 @@ speedtrap-web-services/data/logs/
 speedtrap-web-services/api-gateway/api_keys.conf
 # Exclude client API configuration file for security purposes
 client/settings.py
-# Exdlue vim .swp files for performance purposes
+# Exclude vim .swp files for performance purposes
 *.swp
+# Exclude .DS_Store files
+.DS_Store
+# Exclude data directory
+data/
+# Exclude external-site configs
+speedtrap-web-services/api-gateway/external-sites/
