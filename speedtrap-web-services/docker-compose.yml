@@ -95,3 +95,8 @@ secrets:
         file: ./data/secrets/auth0-config
     py-mongo-web_app-secret:
         file: ./data/secrets/py-mongo-web_app-secret
+
+networks:
+    default:
+        external:
+            name: internal-network
